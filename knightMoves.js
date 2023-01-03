@@ -1,18 +1,7 @@
 // prettier-ignore
 const checkIfVisited = (visitedCoordinates, testCoordinate) =>
-  visitedCoordinates.some((visitedCoordinate) => {
-    // prettier-ignore
-    console.log(visitedCoordinate, testCoordinate)
-     return visitedCoordinate[0] === testCoordinate[0] && visitedCoordinate[1] === testCoordinate[1]
-  }
-  );
-
-const arr1 = [0, 0];
-const arr2 = [
-  [1, 2],
-  [0, 0],
-];
-// console.log(checkIfVisited(arr2, arr1));
+  visitedCoordinates.some((visitedCoordinate) => visitedCoordinate[0] === testCoordinate[0] && visitedCoordinate[1] === testCoordinate[1]
+);
 
 // prettier-ignore
 const knightMoves = (
@@ -43,6 +32,8 @@ const knightMoves = (
   if (checkIfVisited(visitedCoordinates, startingCoordinate) === false) {
     visitedCoordinates.push(startingCoordinate)
   }
+  // remove first item in queue since it was just evaluated
+  traversalQueue.shift()
   // use breadth first search
   // compare if startedCoordinate and endingCoordinate are the same
   if (startingCoordinate[0] === endingCoordinate[0] && startingCoordinate[1] === endingCoordinate[1]) {
@@ -62,7 +53,6 @@ const knightMoves = (
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 2, startingCoordinate[1] - 1]) === false
     ) {
       traversalQueue.push([startingCoordinate[0] + 2, startingCoordinate[1] - 1])
-      console.log([startingCoordinate[0] + 2, startingCoordinate[1] - 1], "right 2 up 1")
     }
     // check if right 2, down 1 is valid and not already visited
     if (
@@ -121,7 +111,7 @@ const knightMoves = (
       traversalQueue.push([startingCoordinate[0] + 1, startingCoordinate[1] - 2])
     }
     // remove first item in queue since it was just evaluated
-    traversalQueue.unshift() /* MOVE THIS TO THE TOP, this removes children that were just added, or children not visited yet. also SHOULD BE SHIFT */
+    /* traversalQueue.unshift() */ /* MOVE THIS TO THE TOP, this removes children that were just added, or children not visited yet. also SHOULD BE SHIFT */
     console.log(startingCoordinate, "old")
     startingCoordinate = traversalQueue[0]
     console.log(startingCoordinate, "new")
@@ -164,4 +154,4 @@ const GameBoard = (() => {
 // console.log(GameBoard.getBoard());
 GameBoard.setBoard([4, 4]);
 
-// knightMoves([0, 0], [1, 2]);
+knightMoves([0, 0], [3, 3]);
