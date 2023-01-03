@@ -13,7 +13,7 @@ const knightMoves = (
   endingCoordinate,
   moveCounter = 0,
   visitedCoordinates = [],
-  queue = []
+  traversalQueue = []
 ) => {
   // return error message if either coordinate is off the board/invalid
   if (
@@ -50,31 +50,63 @@ const knightMoves = (
       startingCoordinate[1] - 1 >= 0 &&
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 2, startingCoordinate[1] - 1]) === false
     ) {
-      queue.push([startingCoordinate[0] + 2, startingCoordinate[1] - 1])
+      traversalQueue.push([startingCoordinate[0] + 2, startingCoordinate[1] - 1])
     }
-    // check if right 2, down 1 is valid
+    // check if right 2, down 1 is valid and not already visited
     if (
       startingCoordinate[0] + 2 <= 7 &&
       startingCoordinate[1] + 1 <= 7 &&
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 2, startingCoordinate[1] + 1]) === false
     ) {
-      queue.push([startingCoordinate[0] + 2, startingCoordinate[1] + 1])
+      traversalQueue.push([startingCoordinate[0] + 2, startingCoordinate[1] + 1])
     }
-    // check if down 2, right 1 is valid
+    // check if down 2, right 1 is valid and not already visited
     if (
       startingCoordinate[0] + 1 <= 7 &&
       startingCoordinate[1] + 2 <= 7 &&
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 1, startingCoordinate[1] + 2]) === false
     ) {
-      queue.push([startingCoordinate[0] + 1, startingCoordinate[1] + 2])
+      traversalQueue.push([startingCoordinate[0] + 1, startingCoordinate[1] + 2])
     }
-    // check if down 2, left 1 is valid
+    // check if down 2, left 1 is valid and not already visited
     if (
       startingCoordinate[0] - 1 >= 0 &&
       startingCoordinate[1] + 2 <= 7 &&
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 1, startingCoordinate[1] + 2])
     ) {
-      queue.push([startingCoordinate[0] - 1, startingCoordinate[1] + 2])
+      traversalQueue.push([startingCoordinate[0] - 1, startingCoordinate[1] + 2])
+    }
+    // check if left 2, down 1 is valid and not already visited
+    if (
+      startingCoordinate[0] - 2 >= 0 &&
+      startingCoordinate[1] + 1 <= 7 &&
+      checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 2, startingCoordinate[1] + 1])
+    ) {
+      traversalQueue.push([startingCoordinate[0] - 2, startingCoordinate[1] + 1])
+    }
+    // check if left 2, up 1 is valid and not already visited
+    if (
+      startingCoordinate[0] - 2 >= 0 &&
+      startingCoordinate[1] - 1 >= 0 &&
+      checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 2, startingCoordinate[1] - 1])
+    ) {
+      traversalQueue.push([startingCoordinate[0] - 2, startingCoordinate[1] - 1])
+    }
+    // check if up 2, left 1 is valid and not already visited
+    if (
+      startingCoordinate[0] - 1 >= 0 &&
+      startingCoordinate[1] - 2 >= 0 &&
+      checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 1, startingCoordinate[1] - 2])
+    ) {
+      traversalQueue.push([startingCoordinate[0] - 1, startingCoordinate[1] - 2])
+    }
+    // check if up 2, right 1 is valid and not already visited
+    if (
+      startingCoordinate[0] + 1 <= 7 &&
+      startingCoordinate[1] - 2 >= 0 &&
+      checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 1, startingCoordinate[1] - 2])
+    ) {
+      traversalQueue.push([startingCoordinate[0] + 1, startingCoordinate[1] - 2])
     }
     // if not the same
       /* determine the moves the knight can make without moving off board (8 possible permutations of (hori. +-2, vert. +-1) or
