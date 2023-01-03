@@ -1,3 +1,4 @@
+// prettier-ignore
 const knightMoves = (
   startingCoordinate,
   endingCoordinate,
@@ -5,9 +6,23 @@ const knightMoves = (
   visitedCoordinates = [],
   queue = [startingCoordinate]
 ) => {
-  // prettier-ignore
   // return error message if either coordinate is off the board/invalid
-
+  if (
+    startingCoordinate[0] < 0 ||
+    startingCoordinate[0] > 7 ||
+    startingCoordinate[1] < 0 ||
+    startingCoordinate[1] > 7
+  ) {
+    return "Your starting square is not a valid square on the board.";
+  }
+  if (
+    endingCoordinate[0] < 0 ||
+    endingCoordinate[0] > 7 ||
+    endingCoordinate[1] < 0 ||
+    endingCoordinate[1] > 7
+  ) {
+    return "Your ending square is not a valid square on the board.";
+  }
   // use breadth first search
   // compare if startedCoordinate and endingCoordinate are the same
 
