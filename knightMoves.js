@@ -1,3 +1,12 @@
+const checkIfVisited = (visitedCoordinates, testCoordinate) =>
+  visitedCoordinates.some((visitedCoordinate) => {
+    console.log(visitedCoordinate, testCoordinate);
+    return (
+      visitedCoordinate[0] === testCoordinate[0] &&
+      visitedCoordinate[1] === testCoordinate[1]
+    );
+  });
+
 // prettier-ignore
 const knightMoves = (
   startingCoordinate,
@@ -35,6 +44,22 @@ const knightMoves = (
       // forEach loop visitedCoordinates and print each item/coordinate
       // return
   } else {
+    // check if right 2, up 1 is valid and not already visited
+    if (
+      startingCoordinate[0] + 2 <= 7 &&
+      startingCoordinate[1] + 1 <= 7 &&
+      checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 2, startingCoordinate[1] + 1]) === false
+    ) {
+      queue.push([startingCoordinate[0] + 2, startingCoordinate[1] + 1])
+    }
+    // check if right 2, down 1 is valid
+    if (
+      startingCoordinate[0] + 2 <= 7 &&
+      startingCoordinate[1] - 1 >= 0 &&
+      checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 2, startingCoordinate[1] - 1]) === false
+    ) {
+      queue.push([startingCoordinate[0] + 2, startingCoordinate[1] - 1])
+    }
     // if not the same
       /* determine the moves the knight can make without moving off board (8 possible permutations of (hori. +-2, vert. +-1) or
       (vert. +- 2, hori. +- 1), 0 <= x <= 7, 0 <= y <= 7) */
