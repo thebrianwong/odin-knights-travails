@@ -7,7 +7,8 @@ const checkIfVisited = (visitedCoordinates, testCoordinate) =>
 const knightMoves = (
   startingCoordinate,
   endingCoordinate,
-  moveCounter = 0,
+  currentMoveCounter = 0,
+  lowestMoveCounter = Infinity,
   visitedCoordinates = [],
   traversalQueue = []
 ) => {
@@ -35,10 +36,10 @@ const knightMoves = (
   }
   // remove first item in queue since it was just evaluated
   traversalQueue.shift()
-  // use breadth first search
+  // use breadth first search /* ACTUALLY maybe depth first would work better */
   // compare if startedCoordinate and endingCoordinate are the same
   if (startingCoordinate[0] === endingCoordinate[0] && startingCoordinate[1] === endingCoordinate[1]) {
-    console.log(`You made it in ${moveCounter} moves! Here's your path:`)
+    console.log(`You made it in ${currentMoveCounter} moves! Here's your path:`)
       visitedCoordinates.forEach((coordinate) => {
         console.log(coordinate)
       })
@@ -57,8 +58,8 @@ const knightMoves = (
       if (endingCoordinate[0] === startingCoordinate[0] + 2 && endingCoordinate[1] === startingCoordinate[1] - 1) {
         traversalQueue.unshift([startingCoordinate[0] + 2, startingCoordinate[1] - 1])
         startingCoordinate = traversalQueue[0]
-        moveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+        currentMoveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       } 
       traversalQueue.push([startingCoordinate[0] + 2, startingCoordinate[1] - 1])
     }
@@ -72,8 +73,8 @@ const knightMoves = (
       if (endingCoordinate[0] === startingCoordinate[0] + 2 && endingCoordinate[1] === startingCoordinate[1] + 1) {
         traversalQueue.unshift([startingCoordinate[0] + 2, startingCoordinate[1] + 1])
         startingCoordinate = traversalQueue[0]
-        moveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+        currentMoveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       } 
       traversalQueue.push([startingCoordinate[0] + 2, startingCoordinate[1] + 1])
     }
@@ -87,8 +88,8 @@ const knightMoves = (
       if (endingCoordinate[0] === startingCoordinate[0] + 1 && endingCoordinate[1] === startingCoordinate[1] + 2) {
         traversalQueue.unshift([startingCoordinate[0] + 1, startingCoordinate[1] + 2])
         startingCoordinate = traversalQueue[0]
-        moveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+        currentMoveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       } 
       traversalQueue.push([startingCoordinate[0] + 1, startingCoordinate[1] + 2])
     }
@@ -102,8 +103,8 @@ const knightMoves = (
       if (endingCoordinate[0] === startingCoordinate[0] - 1 && endingCoordinate[1] === startingCoordinate[1] + 2) {
         traversalQueue.unshift([startingCoordinate[0] - 1, startingCoordinate[1] + 2])
         startingCoordinate = traversalQueue[0]
-        moveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+        currentMoveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       } 
       traversalQueue.push([startingCoordinate[0] - 1, startingCoordinate[1] + 2])
     }
@@ -117,8 +118,8 @@ const knightMoves = (
       if (endingCoordinate[0] === startingCoordinate[0] - 2 && endingCoordinate[1] === startingCoordinate[1] + 1) {
         traversalQueue.unshift([startingCoordinate[0] - 2, startingCoordinate[1] + 1])
         startingCoordinate = traversalQueue[0]
-        moveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+        currentMoveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       } 
       traversalQueue.push([startingCoordinate[0] - 2, startingCoordinate[1] + 1])
     }
@@ -132,8 +133,8 @@ const knightMoves = (
       if (endingCoordinate[0] === startingCoordinate[0] - 2 && endingCoordinate[1] === startingCoordinate[1] - 1) {
         traversalQueue.unshift([startingCoordinate[0] - 2, startingCoordinate[1] - 1])
         startingCoordinate = traversalQueue[0]
-        moveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+        currentMoveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       }
       traversalQueue.push([startingCoordinate[0] - 2, startingCoordinate[1] - 1])
     }
@@ -147,8 +148,8 @@ const knightMoves = (
       if (endingCoordinate[0] === startingCoordinate[0] - 1 && endingCoordinate[1] === startingCoordinate[1] - 2) {
         traversalQueue.unshift([startingCoordinate[0] - 1, startingCoordinate[1] - 2])
         startingCoordinate = traversalQueue[0]
-        moveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+        currentMoveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       }
       traversalQueue.push([startingCoordinate[0] - 1, startingCoordinate[1] - 2])
     }
@@ -162,8 +163,8 @@ const knightMoves = (
       if (endingCoordinate[0] === startingCoordinate[0] + 1 && endingCoordinate[1] === startingCoordinate[1] - 2) {
         traversalQueue.unshift([tartingCoordinate[0] + 1, startingCoordinate[1] - 2])
         startingCoordinate = traversalQueue[0]
-        moveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+        currentMoveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       }
       traversalQueue.push([startingCoordinate[0] + 1, startingCoordinate[1] - 2])
     }
@@ -173,8 +174,8 @@ const knightMoves = (
     console.log(startingCoordinate, "old")
     startingCoordinate = traversalQueue[0]
     console.log(startingCoordinate, "new")
-    moveCounter += 1
-    knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+    currentMoveCounter += 1
+    knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
 
     // if not the same
       /* determine the moves the knight can make without moving off board (8 possible permutations of (hori. +-2, vert. +-1) or
