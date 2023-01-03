@@ -54,6 +54,12 @@ const knightMoves = (
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 2, startingCoordinate[1] - 1]) === false &&
       checkIfVisited(traversalQueue, [startingCoordinate[0] + 2, startingCoordinate[1] - 1]) === false
     ) {
+      if (endingCoordinate[0] === startingCoordinate[0] + 2 && endingCoordinate[1] === startingCoordinate[1] - 1) {
+        traversalQueue.unshift([startingCoordinate[0] + 2, startingCoordinate[1] - 1])
+        startingCoordinate = traversalQueue[0]
+        moveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+      } 
       traversalQueue.push([startingCoordinate[0] + 2, startingCoordinate[1] - 1])
     }
     // check if right 2, down 1 is valid and not already visited
@@ -63,6 +69,12 @@ const knightMoves = (
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 2, startingCoordinate[1] + 1]) === false &&
       checkIfVisited(traversalQueue, [startingCoordinate[0] + 2, startingCoordinate[1] + 1]) === false
     ) {
+      if (endingCoordinate[0] === startingCoordinate[0] + 2 && endingCoordinate[1] === startingCoordinate[1] + 1) {
+        traversalQueue.unshift([startingCoordinate[0] + 2, startingCoordinate[1] + 1])
+        startingCoordinate = traversalQueue[0]
+        moveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+      } 
       traversalQueue.push([startingCoordinate[0] + 2, startingCoordinate[1] + 1])
     }
     // check if down 2, right 1 is valid and not already visited
@@ -72,6 +84,12 @@ const knightMoves = (
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 1, startingCoordinate[1] + 2]) === false &&
       checkIfVisited(traversalQueue, [startingCoordinate[0] + 1, startingCoordinate[1] + 2]) === false
     ) {
+      if (endingCoordinate[0] === startingCoordinate[0] + 1 && endingCoordinate[1] === startingCoordinate[1] + 2) {
+        traversalQueue.unshift([startingCoordinate[0] + 1, startingCoordinate[1] + 2])
+        startingCoordinate = traversalQueue[0]
+        moveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+      } 
       traversalQueue.push([startingCoordinate[0] + 1, startingCoordinate[1] + 2])
     }
     // check if down 2, left 1 is valid and not already visited
@@ -81,6 +99,12 @@ const knightMoves = (
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 1, startingCoordinate[1] + 2]) === false &&
       checkIfVisited(traversalQueue, [startingCoordinate[0] - 1, startingCoordinate[1] + 2]) === false
     ) {
+      if (endingCoordinate[0] === startingCoordinate[0] - 1 && endingCoordinate[1] === startingCoordinate[1] + 2) {
+        traversalQueue.unshift([startingCoordinate[0] - 1, startingCoordinate[1] + 2])
+        startingCoordinate = traversalQueue[0]
+        moveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+      } 
       traversalQueue.push([startingCoordinate[0] - 1, startingCoordinate[1] + 2])
     }
     // check if left 2, down 1 is valid and not already visited
@@ -90,6 +114,12 @@ const knightMoves = (
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 2, startingCoordinate[1] + 1]) === false &&
       checkIfVisited(traversalQueue, [startingCoordinate[0] - 2, startingCoordinate[1] + 1]) === false
     ) {
+      if (endingCoordinate[0] === startingCoordinate[0] - 2 && endingCoordinate[1] === startingCoordinate[1] + 1) {
+        traversalQueue.unshift([startingCoordinate[0] - 2, startingCoordinate[1] + 1])
+        startingCoordinate = traversalQueue[0]
+        moveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+      } 
       traversalQueue.push([startingCoordinate[0] - 2, startingCoordinate[1] + 1])
     }
     // check if left 2, up 1 is valid and not already visited
@@ -99,6 +129,12 @@ const knightMoves = (
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 2, startingCoordinate[1] - 1]) === false &&
       checkIfVisited(traversalQueue, [startingCoordinate[0] - 2, startingCoordinate[1] - 1]) === false
     ) {
+      if (endingCoordinate[0] === startingCoordinate[0] - 2 && endingCoordinate[1] === startingCoordinate[1] - 1) {
+        traversalQueue.unshift([startingCoordinate[0] - 2, startingCoordinate[1] - 1])
+        startingCoordinate = traversalQueue[0]
+        moveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+      }
       traversalQueue.push([startingCoordinate[0] - 2, startingCoordinate[1] - 1])
     }
     // check if up 2, left 1 is valid and not already visited
@@ -108,6 +144,12 @@ const knightMoves = (
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 1, startingCoordinate[1] - 2]) === false &&
       checkIfVisited(traversalQueue, [startingCoordinate[0] - 1, startingCoordinate[1] - 2]) === false
     ) {
+      if (endingCoordinate[0] === startingCoordinate[0] - 1 && endingCoordinate[1] === startingCoordinate[1] - 2) {
+        traversalQueue.unshift([startingCoordinate[0] - 1, startingCoordinate[1] - 2])
+        startingCoordinate = traversalQueue[0]
+        moveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+      }
       traversalQueue.push([startingCoordinate[0] - 1, startingCoordinate[1] - 2])
     }
     // check if up 2, right 1 is valid and not already visited
@@ -117,6 +159,12 @@ const knightMoves = (
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 1, startingCoordinate[1] - 2]) === false &&
       checkIfVisited(traversalQueue, [startingCoordinate[0] + 1, startingCoordinate[1] - 2]) === false
     ) {
+      if (endingCoordinate[0] === startingCoordinate[0] + 1 && endingCoordinate[1] === startingCoordinate[1] - 2) {
+        traversalQueue.unshift([tartingCoordinate[0] + 1, startingCoordinate[1] - 2])
+        startingCoordinate = traversalQueue[0]
+        moveCounter += 1
+        return knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
+      }
       traversalQueue.push([startingCoordinate[0] + 1, startingCoordinate[1] - 2])
     }
     // remove first item in queue since it was just evaluated
