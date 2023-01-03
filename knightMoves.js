@@ -1,11 +1,18 @@
+// prettier-ignore
 const checkIfVisited = (visitedCoordinates, testCoordinate) =>
   visitedCoordinates.some((visitedCoordinate) => {
-    console.log(visitedCoordinate, testCoordinate);
-    return (
-      visitedCoordinate[0] === testCoordinate[0] &&
-      visitedCoordinate[1] === testCoordinate[1]
-    );
-  });
+    // prettier-ignore
+    console.log(visitedCoordinate, testCoordinate)
+     return visitedCoordinate[0] === testCoordinate[0] && visitedCoordinate[1] === testCoordinate[1]
+  }
+  );
+
+const arr1 = [0, 0];
+const arr2 = [
+  [1, 2],
+  [0, 0],
+];
+// console.log(checkIfVisited(arr2, arr1));
 
 // prettier-ignore
 const knightMoves = (
@@ -32,6 +39,10 @@ const knightMoves = (
   ) {
     return "Your ending square is not a valid square on the board.";
   }
+  // add current startingCoordinate to list of coordinates already visited
+  if (checkIfVisited(visitedCoordinates, startingCoordinate) === false) {
+    visitedCoordinates.push(startingCoordinate)
+  }
   // use breadth first search
   // compare if startedCoordinate and endingCoordinate are the same
   if (startingCoordinate[0] === endingCoordinate[0] && startingCoordinate[1] === endingCoordinate[1]) {
@@ -51,6 +62,7 @@ const knightMoves = (
       checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 2, startingCoordinate[1] - 1]) === false
     ) {
       traversalQueue.push([startingCoordinate[0] + 2, startingCoordinate[1] - 1])
+      console.log([startingCoordinate[0] + 2, startingCoordinate[1] - 1], "right 2 up 1")
     }
     // check if right 2, down 1 is valid and not already visited
     if (
@@ -72,7 +84,7 @@ const knightMoves = (
     if (
       startingCoordinate[0] - 1 >= 0 &&
       startingCoordinate[1] + 2 <= 7 &&
-      checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 1, startingCoordinate[1] + 2])
+      checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 1, startingCoordinate[1] + 2]) === false
     ) {
       traversalQueue.push([startingCoordinate[0] - 1, startingCoordinate[1] + 2])
     }
@@ -80,7 +92,7 @@ const knightMoves = (
     if (
       startingCoordinate[0] - 2 >= 0 &&
       startingCoordinate[1] + 1 <= 7 &&
-      checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 2, startingCoordinate[1] + 1])
+      checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 2, startingCoordinate[1] + 1]) === false
     ) {
       traversalQueue.push([startingCoordinate[0] - 2, startingCoordinate[1] + 1])
     }
@@ -88,7 +100,7 @@ const knightMoves = (
     if (
       startingCoordinate[0] - 2 >= 0 &&
       startingCoordinate[1] - 1 >= 0 &&
-      checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 2, startingCoordinate[1] - 1])
+      checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 2, startingCoordinate[1] - 1]) === false
     ) {
       traversalQueue.push([startingCoordinate[0] - 2, startingCoordinate[1] - 1])
     }
@@ -96,7 +108,7 @@ const knightMoves = (
     if (
       startingCoordinate[0] - 1 >= 0 &&
       startingCoordinate[1] - 2 >= 0 &&
-      checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 1, startingCoordinate[1] - 2])
+      checkIfVisited(visitedCoordinates, [startingCoordinate[0] - 1, startingCoordinate[1] - 2]) === false
     ) {
       traversalQueue.push([startingCoordinate[0] - 1, startingCoordinate[1] - 2])
     }
@@ -104,15 +116,15 @@ const knightMoves = (
     if (
       startingCoordinate[0] + 1 <= 7 &&
       startingCoordinate[1] - 2 >= 0 &&
-      checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 1, startingCoordinate[1] - 2])
+      checkIfVisited(visitedCoordinates, [startingCoordinate[0] + 1, startingCoordinate[1] - 2]) === false
     ) {
       traversalQueue.push([startingCoordinate[0] + 1, startingCoordinate[1] - 2])
     }
-    // add current startingCoordinate to list of coordinates already visited
-    visitedCoordinates.push(startingCoordinate)
     // remove first item in queue since it was just evaluated
-    traversalQueue.unshift()
+    traversalQueue.unshift() /* MOVE THIS TO THE TOP, this removes children that were just added, or children not visited yet. also SHOULD BE SHIFT */
+    console.log(startingCoordinate, "old")
     startingCoordinate = traversalQueue[0]
+    console.log(startingCoordinate, "new")
     moveCounter += 1
     knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
     // if not the same
@@ -149,5 +161,7 @@ const GameBoard = (() => {
   };
 })();
 
-console.log(GameBoard.getBoard());
+// console.log(GameBoard.getBoard());
 GameBoard.setBoard([4, 4]);
+
+// knightMoves([0, 0], [1, 2]);
