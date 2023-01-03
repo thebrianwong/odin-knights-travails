@@ -26,21 +26,21 @@ const knightMoves = (
   // use breadth first search
   // compare if startedCoordinate and endingCoordinate are the same
   if (startingCoordinate[0] === endingCoordinate[0] && startingCoordinate[1] === endingCoordinate[1]) {
-  // if not the same
-    /* determine the moves the knight can make without moving off board (8 possible permutations of (hori. +-2, vert. +-1) or
-    (vert. +- 2, hori. +- 1), 0 <= x <= 7, 0 <= y <= 7) */
-      // add possible moves/children to queue ONLY IF they have not already been visited (compare with items in visitedCoordinates)
-    // unshift queue to pop current coordinate that was just evaluated to not be the endingCoordinate
-    // recurvisely traverse the graph by calling knightMoves() with startingCoordinate being the possible moves a
-  } else {
     console.log(`You made it in ${moveCounter} moves! Here's your path:`)
-    visitedCoordinates.forEach((coordinate) => {
-      console.log(coordinate)
-    })
-  // if the same, means found the endingCoordinate and can display relevant info
-    // print moveCounter
-    // forEach loop visitedCoordinates and print each item/coordinate
-    // return
+      visitedCoordinates.forEach((coordinate) => {
+        console.log(coordinate)
+      })
+    // if the same, means found the endingCoordinate and can display relevant info
+      // print moveCounter
+      // forEach loop visitedCoordinates and print each item/coordinate
+      // return
+  } else {
+    // if not the same
+      /* determine the moves the knight can make without moving off board (8 possible permutations of (hori. +-2, vert. +-1) or
+      (vert. +- 2, hori. +- 1), 0 <= x <= 7, 0 <= y <= 7) */
+        // push possible moves/children to queue ONLY IF they have not already been visited (compare with items in visitedCoordinates)
+      // unshift queue to pop current coordinate that was just evaluated to not be the endingCoordinate
+      // recurvisely traverse the graph by calling knightMoves() with startingCoordinate being the first item in the queue
   }
 };
 
