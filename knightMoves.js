@@ -4,7 +4,7 @@ const knightMoves = (
   endingCoordinate,
   moveCounter = 0,
   visitedCoordinates = [],
-  queue = [startingCoordinate]
+  queue = []
 ) => {
   // return error message if either coordinate is off the board/invalid
   if (
