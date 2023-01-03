@@ -108,6 +108,13 @@ const knightMoves = (
     ) {
       traversalQueue.push([startingCoordinate[0] + 1, startingCoordinate[1] - 2])
     }
+    // add current startingCoordinate to list of coordinates already visited
+    visitedCoordinates.push(startingCoordinate)
+    // remove first item in queue since it was just evaluated
+    traversalQueue.unshift()
+    startingCoordinate = traversalQueue[0]
+    moveCounter += 1
+    knightMoves(startingCoordinate, endingCoordinate, moveCounter, visitedCoordinates, traversalQueue)
     // if not the same
       /* determine the moves the knight can make without moving off board (8 possible permutations of (hori. +-2, vert. +-1) or
       (vert. +- 2, hori. +- 1), 0 <= x <= 7, 0 <= y <= 7) */
