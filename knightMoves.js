@@ -39,6 +39,7 @@ const knightMoves = (
   visitedCoordinates = [],
   traversalQueue = []
 ) => {
+  // edge case for the first function call where GraphNode objects have to be created
   if (Array.isArray(startingCoordinate) || Array.isArray(endingCoordinate)) {
     if (Array.isArray(startingCoordinate)) {
       startingCoordinate = new GraphNode(
@@ -70,6 +71,7 @@ const knightMoves = (
       return;
     }
   }
+  // keep track of visited nodes so that they don't get pointlessly revisited
   if (checkIfVisited(visitedCoordinates, startingCoordinate) === false) {
     visitedCoordinates.push(startingCoordinate);
   }
@@ -81,6 +83,8 @@ const knightMoves = (
     let moveCounter = -1;
     const orderedPath = [];
     while (startingCoordinate !== null) {
+      // retracing from the ending square back to the initial starting square
+      // the path needs to be reversed before displaying it
       orderedPath.unshift(startingCoordinate);
       moveCounter += 1;
       startingCoordinate = startingCoordinate.parentNode;
@@ -91,6 +95,9 @@ const knightMoves = (
     });
   } else {
     for (let i = 0; i <= 7; i++) {
+      // each iteration looks at the 8 possible moves of a knight and determine if
+      // it is a valid move (ie. doesn't move off the board) and if the move would take
+      // the knight to a already visited or currently queued square
       const potentialChildNode = new GraphNode(
         startingCoordinate.row + rowDirections[i],
         startingCoordinate.column + columnDirections[i],
@@ -114,6 +121,6 @@ const knightMoves = (
   }
 };
 
-knightMoves([2, 3], [4, 3]);
-// knightMoves([6, 0], [4, 2]);
+// knightMoves([2, 3], [4, 3]);
+knightMoves([6, 0], [4, 2]);
 // knightMoves([0, 0], [1, 2]);
