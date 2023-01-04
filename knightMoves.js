@@ -41,27 +41,29 @@ const knightMoves = (
   visitedCoordinates = [],
   traversalQueue = []
 ) => {
-  if (Array.isArray(startingCoordinate)) {
-    startingCoordinate = new GraphNode(startingCoordinate[0], startingCoordinate[1])
-  }
-  if (Array.isArray(endingCoordinate)) {
-    endingCoordinate = new GraphNode(endingCoordinate[0], endingCoordinate[1])
-  }
-  if (isValidCoordinate(startingCoordinate) === false && isValidCoordinate(endingCoordinate) === false) {
-    console.log("Your starting and ending squares are not valid squares on the board.")
-    return
-  } 
-  if (
-    isValidCoordinate(startingCoordinate) === false
-  ) {
-    console.log("Your starting square is not a valid square on the board.")
-    return;
-  }
-  if (
-    isValidCoordinate(endingCoordinate) === false
-  ) {
-    console.log("Your ending square is not a valid square on the board.")
-    return;
+  if (Array.isArray(startingCoordinate) || Array.isArray(endingCoordinate)) {
+    if (Array.isArray(startingCoordinate)) {
+      startingCoordinate = new GraphNode(startingCoordinate[0], startingCoordinate[1])
+    }
+    if (Array.isArray(endingCoordinate)) {
+      endingCoordinate = new GraphNode(endingCoordinate[0], endingCoordinate[1])
+    }
+    if (isValidCoordinate(startingCoordinate) === false && isValidCoordinate(endingCoordinate) === false) {
+      console.log("Your starting and ending squares are not valid squares on the board.")
+      return
+    } 
+    if (
+      isValidCoordinate(startingCoordinate) === false
+    ) {
+      console.log("Your starting square is not a valid square on the board.")
+      return;
+    }
+    if (
+      isValidCoordinate(endingCoordinate) === false
+    ) {
+      console.log("Your ending square is not a valid square on the board.")
+      return;
+    }
   }
   // add current startingCoordinate to list of coordinates already visited
   if (checkIfVisited(visitedCoordinates, startingCoordinate) === false) {
@@ -96,7 +98,7 @@ const knightMoves = (
   }
 };
 
-knightMoves([3, 3], [4, 3]);
+knightMoves([2, 3], [4, 3]);
 // knightMoves([6, 0], [4, 2]);
 // knightMoves([0, 0], [1, 2]);
 
