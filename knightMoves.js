@@ -23,8 +23,6 @@ const GraphNode = class {
 const knightMoves = (
   startingCoordinate,
   endingCoordinate,
-  currentMoveCounter = 0,
-  lowestMoveCounter = Infinity,
   visitedCoordinates = [],
   traversalQueue = []
 ) => {
@@ -84,8 +82,7 @@ const knightMoves = (
       if (endingCoordinate.row === startingCoordinate.row + 2 && endingCoordinate.column === startingCoordinate.column - 1) {
         traversalQueue.unshift(new GraphNode(startingCoordinate.row + 2, startingCoordinate.column - 1), startingCoordinate)
         startingCoordinate = traversalQueue[0]
-        currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
+        return knightMoves(startingCoordinate, endingCoordinate, visitedCoordinates, traversalQueue)
       } 
       traversalQueue.push(new GraphNode(startingCoordinate.row + 2, startingCoordinate.column - 1, startingCoordinate))
     }
@@ -99,8 +96,7 @@ const knightMoves = (
       if (endingCoordinate.row === startingCoordinate.row + 2 && endingCoordinate.column === startingCoordinate.column + 1) {
         traversalQueue.unshift(new GraphNode(startingCoordinate.row + 2, startingCoordinate.column + 1, startingCoordinate))
         startingCoordinate = traversalQueue[0]
-        currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
+        return knightMoves(startingCoordinate, endingCoordinate, visitedCoordinates, traversalQueue)
       } 
       traversalQueue.push(new GraphNode(startingCoordinate.row + 2, startingCoordinate.column + 1, startingCoordinate))
     }
@@ -114,8 +110,7 @@ const knightMoves = (
       if (endingCoordinate.row === startingCoordinate.row + 1 && endingCoordinate.column === startingCoordinate.column + 2) {
         traversalQueue.unshift(new GraphNode(startingCoordinate.row + 1, startingCoordinate.column + 2, startingCoordinate))
         startingCoordinate = traversalQueue[0]
-        currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
+        return knightMoves(startingCoordinate, endingCoordinate, visitedCoordinates, traversalQueue)
       } 
       traversalQueue.push(new GraphNode(startingCoordinate.row + 1, startingCoordinate.column + 2, startingCoordinate))
     }
@@ -129,8 +124,7 @@ const knightMoves = (
       if (endingCoordinate.row === startingCoordinate.row - 1 && endingCoordinate.column === startingCoordinate.column + 2) {
         traversalQueue.unshift(new GraphNode(startingCoordinate.row - 1, startingCoordinate.column + 2, startingCoordinate))
         startingCoordinate = traversalQueue[0]
-        currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
+        return knightMoves(startingCoordinate, endingCoordinate, visitedCoordinates, traversalQueue)
       } 
       traversalQueue.push(new GraphNode(startingCoordinate.row - 1, startingCoordinate.column + 2, startingCoordinate))
     }
@@ -144,8 +138,7 @@ const knightMoves = (
       if (endingCoordinate.row === startingCoordinate.row - 2 && endingCoordinate.column === startingCoordinate.column + 1) {
         traversalQueue.unshift(new GraphNode(startingCoordinate.row - 2, startingCoordinate.column + 1, startingCoordinate))
         startingCoordinate = traversalQueue[0]
-        currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
+        return knightMoves(startingCoordinate, endingCoordinate, visitedCoordinates, traversalQueue)
       } 
       traversalQueue.push(new GraphNode(startingCoordinate.row - 2, startingCoordinate.column + 1, startingCoordinate))
     }
@@ -159,8 +152,7 @@ const knightMoves = (
       if (endingCoordinate.row === startingCoordinate.row - 2 && endingCoordinate.column === startingCoordinate.column - 1) {
         traversalQueue.unshift(new GraphNode(startingCoordinate.row - 2, startingCoordinate.column - 1, startingCoordinate))
         startingCoordinate = traversalQueue[0]
-        currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
+        return knightMoves(startingCoordinate, endingCoordinate,visitedCoordinates, traversalQueue)
       }
       traversalQueue.push(new GraphNode(startingCoordinate.row - 2, startingCoordinate.column - 1, startingCoordinate))
     }
@@ -174,8 +166,7 @@ const knightMoves = (
       if (endingCoordinate.row === startingCoordinate.row - 1 && endingCoordinate.column === startingCoordinate.column - 2) {
         traversalQueue.unshift(new GraphNode(startingCoordinate.row - 1, startingCoordinate.column - 2, startingCoordinate))
         startingCoordinate = traversalQueue[0]
-        currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
+        return knightMoves(startingCoordinate, endingCoordinate, visitedCoordinates, traversalQueue)
       }
       traversalQueue.push(new GraphNode(startingCoordinate.row - 1, startingCoordinate.column - 2, startingCoordinate))
     }
@@ -189,20 +180,18 @@ const knightMoves = (
       if (endingCoordinate.row === startingCoordinate.row + 1 && endingCoordinate.column === startingCoordinate.column - 2) {
         traversalQueue.unshift(new GraphNode(startingCoordinate.row + 1, startingCoordinate.column - 2, startingCoordinate))
         startingCoordinate = traversalQueue[0]
-        currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
+        return knightMoves(startingCoordinate, endingCoordinate, visitedCoordinates, traversalQueue)
       }
       traversalQueue.push(new GraphNode(startingCoordinate.row + 1, startingCoordinate.column - 2, startingCoordinate))
     }
     startingCoordinate = traversalQueue[0]
-    currentMoveCounter += 1
-    return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
+    return knightMoves(startingCoordinate, endingCoordinate, visitedCoordinates, traversalQueue)
   }
 };
 
 // knightMoves([0, 0], [3, 4]);
 // knightMoves([6, 0], [4, 2]);
-knightMoves([4, 5], [0, 1]);
+knightMoves([3, 3], [4, 3]);
 
 // make children logic go straight to the child square that is the ending square if possible, double check the logic so make sure all are legal moves
 
