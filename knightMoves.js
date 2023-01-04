@@ -11,6 +11,18 @@ const convertToArray = (graphNode) => {
   return array;
 };
 
+const isValidCoordinate = (coordinate) => {
+  if (
+    coordinate.row < 0 ||
+    coordinate.row > 7 ||
+    coordinate.column < 0 ||
+    coordinate.column > 7
+  ) {
+    return false;
+  }
+  return true;
+};
+
 const GraphNode = class {
   constructor(row, column, parentNode = null) {
     this.row = row;
@@ -32,21 +44,21 @@ const knightMoves = (
   if (Array.isArray(endingCoordinate)) {
     endingCoordinate = new GraphNode(endingCoordinate[0], endingCoordinate[1])
   }
+  if (isValidCoordinate(startingCoordinate) === false && isValidCoordinate(endingCoordinate) === false) {
+    console.log("Your starting and ending squares are not valid squares on the board.")
+    return
+  } 
   if (
-    startingCoordinate.row < 0 ||
-    startingCoordinate.row > 7 ||
-    startingCoordinate.column < 0 ||
-    startingCoordinate.column > 7
+    isValidCoordinate(startingCoordinate) === false
   ) {
-    return "Your starting square is not a valid square on the board.";
+    console.log("Your starting square is not a valid square on the board.")
+    return;
   }
   if (
-    endingCoordinate.row < 0 ||
-    endingCoordinate.row > 7 ||
-    endingCoordinate.column < 0 ||
-    endingCoordinate.column > 7
+    isValidCoordinate(endingCoordinate) === false
   ) {
-    return "Your ending square is not a valid square on the board.";
+    console.log("Your ending square is not a valid square on the board.")
+    return;
   }
   // add current startingCoordinate to list of coordinates already visited
   if (checkIfVisited(visitedCoordinates, startingCoordinate) === false) {
@@ -191,7 +203,7 @@ const knightMoves = (
 
 // knightMoves([0, 0], [3, 4]);
 // knightMoves([6, 0], [4, 2]);
-knightMoves([3, 3], [4, 3]);
+knightMoves([2, 2], [1, 3]);
 
 // make children logic go straight to the child square that is the ending square if possible, double check the logic so make sure all are legal moves
 
