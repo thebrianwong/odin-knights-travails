@@ -25,8 +25,8 @@ const knightMoves = (
   endingCoordinate,
   currentMoveCounter = 0,
   lowestMoveCounter = Infinity,
-  currentPath = [],
-  shortestPath = []
+  visitedCoordinates = [],
+  traversalQueue = []
 ) => {
   if (Array.isArray(startingCoordinate)) {
     startingCoordinate = new GraphNode(startingCoordinate[0], startingCoordinate[1])
@@ -51,11 +51,11 @@ const knightMoves = (
     return "Your ending square is not a valid square on the board.";
   }
   // add current startingCoordinate to list of coordinates already visited
-  if (checkIfVisited(currentPath, startingCoordinate) === false) {
-    currentPath.push(startingCoordinate)
+  if (checkIfVisited(visitedCoordinates, startingCoordinate) === false) {
+    visitedCoordinates.push(startingCoordinate)
   }
   // remove first item in queue since it was just evaluated
-  shortestPath.shift()
+  traversalQueue.shift()
   // use breadth first search /* ACTUALLY maybe depth first would work better */
 
   // compare if startedCoordinate and endingCoordinate are the same
@@ -78,125 +78,125 @@ const knightMoves = (
     if (
       startingCoordinate.row + 2 <= 7 &&
       startingCoordinate.column - 1 >= 0 &&
-      checkIfVisited(currentPath, new GraphNode(startingCoordinate.row + 2, startingCoordinate.column - 1)) === false &&
-      checkIfVisited(shortestPath, new GraphNode(startingCoordinate.row + 2, startingCoordinate.column - 1)) === false
+      checkIfVisited(visitedCoordinates, new GraphNode(startingCoordinate.row + 2, startingCoordinate.column - 1)) === false &&
+      checkIfVisited(traversalQueue, new GraphNode(startingCoordinate.row + 2, startingCoordinate.column - 1)) === false
     ) {
       if (endingCoordinate.row === startingCoordinate.row + 2 && endingCoordinate.column === startingCoordinate.column - 1) {
-        shortestPath.unshift(new GraphNode(startingCoordinate.row + 2, startingCoordinate.column - 1), startingCoordinate)
-        startingCoordinate = shortestPath[0]
+        traversalQueue.unshift(new GraphNode(startingCoordinate.row + 2, startingCoordinate.column - 1), startingCoordinate)
+        startingCoordinate = traversalQueue[0]
         currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, currentPath, shortestPath)
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       } 
-      shortestPath.push(new GraphNode(startingCoordinate.row + 2, startingCoordinate.column - 1, startingCoordinate))
+      traversalQueue.push(new GraphNode(startingCoordinate.row + 2, startingCoordinate.column - 1, startingCoordinate))
     }
     // check if right 2, down 1 is valid and not already visited
     if (
       startingCoordinate.row + 2 <= 7 &&
       startingCoordinate.column + 1 <= 7 &&
-      checkIfVisited(currentPath, new GraphNode(startingCoordinate.row + 2, startingCoordinate.column + 1)) === false &&
-      checkIfVisited(shortestPath, new GraphNode(startingCoordinate.row + 2, startingCoordinate.column + 1)) === false
+      checkIfVisited(visitedCoordinates, new GraphNode(startingCoordinate.row + 2, startingCoordinate.column + 1)) === false &&
+      checkIfVisited(traversalQueue, new GraphNode(startingCoordinate.row + 2, startingCoordinate.column + 1)) === false
     ) {
       if (endingCoordinate.row === startingCoordinate.row + 2 && endingCoordinate.column === startingCoordinate.column + 1) {
-        shortestPath.unshift(new GraphNode(startingCoordinate.row + 2, startingCoordinate.column + 1, startingCoordinate))
-        startingCoordinate = shortestPath[0]
+        traversalQueue.unshift(new GraphNode(startingCoordinate.row + 2, startingCoordinate.column + 1, startingCoordinate))
+        startingCoordinate = traversalQueue[0]
         currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, currentPath, shortestPath)
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       } 
-      shortestPath.push(new GraphNode(startingCoordinate.row + 2, startingCoordinate.column + 1, startingCoordinate))
+      traversalQueue.push(new GraphNode(startingCoordinate.row + 2, startingCoordinate.column + 1, startingCoordinate))
     }
     // check if down 2, right 1 is valid and not already visited
     if (
       startingCoordinate.row + 1 <= 7 &&
       startingCoordinate.column + 2 <= 7 &&
-      checkIfVisited(currentPath, new GraphNode(startingCoordinate.row + 1, startingCoordinate.column + 2)) === false &&
-      checkIfVisited(shortestPath, new GraphNode(startingCoordinate.row + 1, startingCoordinate.column + 2)) === false
+      checkIfVisited(visitedCoordinates, new GraphNode(startingCoordinate.row + 1, startingCoordinate.column + 2)) === false &&
+      checkIfVisited(traversalQueue, new GraphNode(startingCoordinate.row + 1, startingCoordinate.column + 2)) === false
     ) {
       if (endingCoordinate.row === startingCoordinate.row + 1 && endingCoordinate.column === startingCoordinate.column + 2) {
-        shortestPath.unshift(new GraphNode(startingCoordinate.row + 1, startingCoordinate.column + 2, startingCoordinate))
-        startingCoordinate = shortestPath[0]
+        traversalQueue.unshift(new GraphNode(startingCoordinate.row + 1, startingCoordinate.column + 2, startingCoordinate))
+        startingCoordinate = traversalQueue[0]
         currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, currentPath, shortestPath)
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       } 
-      shortestPath.push(new GraphNode(startingCoordinate.row + 1, startingCoordinate.column + 2, startingCoordinate))
+      traversalQueue.push(new GraphNode(startingCoordinate.row + 1, startingCoordinate.column + 2, startingCoordinate))
     }
     // check if down 2, left 1 is valid and not already visited
     if (
       startingCoordinate.row - 1 >= 0 &&
       startingCoordinate.column + 2 <= 7 &&
-      checkIfVisited(currentPath, new GraphNode(startingCoordinate.row - 1, startingCoordinate.column + 2)) === false &&
-      checkIfVisited(shortestPath, new GraphNode(startingCoordinate.row - 1, startingCoordinate.column + 2)) === false
+      checkIfVisited(visitedCoordinates, new GraphNode(startingCoordinate.row - 1, startingCoordinate.column + 2)) === false &&
+      checkIfVisited(traversalQueue, new GraphNode(startingCoordinate.row - 1, startingCoordinate.column + 2)) === false
     ) {
       if (endingCoordinate.row === startingCoordinate.row - 1 && endingCoordinate.column === startingCoordinate.column + 2) {
-        shortestPath.unshift(new GraphNode(startingCoordinate.row - 1, startingCoordinate.column + 2, startingCoordinate))
-        startingCoordinate = shortestPath[0]
+        traversalQueue.unshift(new GraphNode(startingCoordinate.row - 1, startingCoordinate.column + 2, startingCoordinate))
+        startingCoordinate = traversalQueue[0]
         currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, currentPath, shortestPath)
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       } 
-      shortestPath.push(new GraphNode(startingCoordinate.row - 1, startingCoordinate.column + 2, startingCoordinate))
+      traversalQueue.push(new GraphNode(startingCoordinate.row - 1, startingCoordinate.column + 2, startingCoordinate))
     }
     // check if left 2, down 1 is valid and not already visited
     if (
       startingCoordinate.row - 2 >= 0 &&
       startingCoordinate.column + 1 <= 7 &&
-      checkIfVisited(currentPath, new GraphNode(startingCoordinate.row - 2, startingCoordinate.column + 1)) === false &&
-      checkIfVisited(shortestPath, new GraphNode(startingCoordinate.row - 2, startingCoordinate.column + 1)) === false
+      checkIfVisited(visitedCoordinates, new GraphNode(startingCoordinate.row - 2, startingCoordinate.column + 1)) === false &&
+      checkIfVisited(traversalQueue, new GraphNode(startingCoordinate.row - 2, startingCoordinate.column + 1)) === false
     ) {
       if (endingCoordinate.row === startingCoordinate.row - 2 && endingCoordinate.column === startingCoordinate.column + 1) {
-        shortestPath.unshift(new GraphNode(startingCoordinate.row - 2, startingCoordinate.column + 1, startingCoordinate))
-        startingCoordinate = shortestPath[0]
+        traversalQueue.unshift(new GraphNode(startingCoordinate.row - 2, startingCoordinate.column + 1, startingCoordinate))
+        startingCoordinate = traversalQueue[0]
         currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, currentPath, shortestPath)
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       } 
-      shortestPath.push(new GraphNode(startingCoordinate.row - 2, startingCoordinate.column + 1, startingCoordinate))
+      traversalQueue.push(new GraphNode(startingCoordinate.row - 2, startingCoordinate.column + 1, startingCoordinate))
     }
     // check if left 2, up 1 is valid and not already visited
     if (
       startingCoordinate.row - 2 >= 0 &&
       startingCoordinate.column - 1 >= 0 &&
-      checkIfVisited(currentPath, new GraphNode(startingCoordinate.row - 2, startingCoordinate.column - 1)) === false &&
-      checkIfVisited(shortestPath, new GraphNode(startingCoordinate.row - 2, startingCoordinate.column - 1)) === false
+      checkIfVisited(visitedCoordinates, new GraphNode(startingCoordinate.row - 2, startingCoordinate.column - 1)) === false &&
+      checkIfVisited(traversalQueue, new GraphNode(startingCoordinate.row - 2, startingCoordinate.column - 1)) === false
     ) {
       if (endingCoordinate.row === startingCoordinate.row - 2 && endingCoordinate.column === startingCoordinate.column - 1) {
-        shortestPath.unshift(new GraphNode(startingCoordinate.row - 2, startingCoordinate.column - 1, startingCoordinate))
-        startingCoordinate = shortestPath[0]
+        traversalQueue.unshift(new GraphNode(startingCoordinate.row - 2, startingCoordinate.column - 1, startingCoordinate))
+        startingCoordinate = traversalQueue[0]
         currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, currentPath, shortestPath)
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       }
-      shortestPath.push(new GraphNode(startingCoordinate.row - 2, startingCoordinate.column - 1, startingCoordinate))
+      traversalQueue.push(new GraphNode(startingCoordinate.row - 2, startingCoordinate.column - 1, startingCoordinate))
     }
     // check if up 2, left 1 is valid and not already visited
     if (
       startingCoordinate.row - 1 >= 0 &&
       startingCoordinate.column - 2 >= 0 &&
-      checkIfVisited(currentPath, new GraphNode(startingCoordinate.row - 1, startingCoordinate.column - 2)) === false &&
-      checkIfVisited(shortestPath, new GraphNode(startingCoordinate.row - 1, startingCoordinate.column - 2)) === false
+      checkIfVisited(visitedCoordinates, new GraphNode(startingCoordinate.row - 1, startingCoordinate.column - 2)) === false &&
+      checkIfVisited(traversalQueue, new GraphNode(startingCoordinate.row - 1, startingCoordinate.column - 2)) === false
     ) {
       if (endingCoordinate.row === startingCoordinate.row - 1 && endingCoordinate.column === startingCoordinate.column - 2) {
-        shortestPath.unshift(new GraphNode(startingCoordinate.row - 1, startingCoordinate.column - 2, startingCoordinate))
-        startingCoordinate = shortestPath[0]
+        traversalQueue.unshift(new GraphNode(startingCoordinate.row - 1, startingCoordinate.column - 2, startingCoordinate))
+        startingCoordinate = traversalQueue[0]
         currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, currentPath, shortestPath)
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       }
-      shortestPath.push(new GraphNode(startingCoordinate.row - 1, startingCoordinate.column - 2, startingCoordinate))
+      traversalQueue.push(new GraphNode(startingCoordinate.row - 1, startingCoordinate.column - 2, startingCoordinate))
     }
     // check if up 2, right 1 is valid and not already visited
     if (
       startingCoordinate.row + 1 <= 7 &&
       startingCoordinate.column - 2 >= 0 &&
-      checkIfVisited(currentPath, new GraphNode(startingCoordinate.row + 1, startingCoordinate.column - 2)) === false &&
-      checkIfVisited(shortestPath, new GraphNode(startingCoordinate.row + 1, startingCoordinate.column - 2)) === false
+      checkIfVisited(visitedCoordinates, new GraphNode(startingCoordinate.row + 1, startingCoordinate.column - 2)) === false &&
+      checkIfVisited(traversalQueue, new GraphNode(startingCoordinate.row + 1, startingCoordinate.column - 2)) === false
     ) {
       if (endingCoordinate.row === startingCoordinate.row + 1 && endingCoordinate.column === startingCoordinate.column - 2) {
-        shortestPath.unshift(new GraphNode(startingCoordinate.row + 1, startingCoordinate.column - 2, startingCoordinate))
-        startingCoordinate = shortestPath[0]
+        traversalQueue.unshift(new GraphNode(startingCoordinate.row + 1, startingCoordinate.column - 2, startingCoordinate))
+        startingCoordinate = traversalQueue[0]
         currentMoveCounter += 1
-        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, currentPath, shortestPath)
+        return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
       }
-      shortestPath.push(new GraphNode(startingCoordinate.row + 1, startingCoordinate.column - 2, startingCoordinate))
+      traversalQueue.push(new GraphNode(startingCoordinate.row + 1, startingCoordinate.column - 2, startingCoordinate))
     }
-    startingCoordinate = shortestPath[0]
+    startingCoordinate = traversalQueue[0]
     currentMoveCounter += 1
-    return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, currentPath, shortestPath)
+    return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, visitedCoordinates, traversalQueue)
   }
 };
 
