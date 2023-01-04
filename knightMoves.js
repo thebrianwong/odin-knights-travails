@@ -23,6 +23,9 @@ const isValidCoordinate = (coordinate) => {
   return true;
 };
 
+const rowDirections = [2, 2, 1, -1, -2, -2, -1, 1];
+const columnDirections = [-1, 1, 2, 2, 1, -1, -2, -2];
+
 const GraphNode = class {
   constructor(row, column, parentNode = null) {
     this.row = row;
@@ -84,6 +87,21 @@ const knightMoves = (
       console.log(convertToArray(coordinate))
     })
   } else {
+
+
+    for (let i = 0; i <= 7; i++) {
+      const potentialChildNode = new GraphNode(startingCoordinate.row + rowDirections[i], startingCoordinate.column + columnDirections[i], startingCoordinate)
+      if (isValidCoordinate(potentialChildNode) && checkIfVisited(visitedCoordinates, potentialChildNode) === false && checkIfVisited(traversalQueue, potentialChildNode) === false) {
+        // if (endingCoordinate.row === potentialChildNode.row && endingCoordinate.column === potentialChildNode.column) {
+        //   traversalQueue.unshift(potentialChildNode)
+        //   startingCoordinate = traversalQueue[0]
+        //   return knightMoves(startingCoordinate, endingCoordinate, visitedCoordinates, traversalQueue)
+        // }
+        traversalQueue.push(potentialChildNode)
+      }
+    }
+
+    /*
     // check if right 2, up 1 is valid and not already visited
     if (
       startingCoordinate.row + 2 <= 7 &&
@@ -196,14 +214,15 @@ const knightMoves = (
       }
       traversalQueue.push(new GraphNode(startingCoordinate.row + 1, startingCoordinate.column - 2, startingCoordinate))
     }
+    */
     startingCoordinate = traversalQueue[0]
     return knightMoves(startingCoordinate, endingCoordinate, visitedCoordinates, traversalQueue)
   }
 };
 
-// knightMoves([0, 0], [3, 4]);
+knightMoves([3, 3], [4, 3]);
 // knightMoves([6, 0], [4, 2]);
-knightMoves([2, 2], [1, 3]);
+// knightMoves([0, 0], [1, 2]);
 
 // make children logic go straight to the child square that is the ending square if possible, double check the logic so make sure all are legal moves
 
