@@ -200,9 +200,6 @@ const knightMoves = (
   }
 };
 
-// console.log(GameBoard.getBoard());
-GameBoard.setBoard([4, 4]);
-
 // knightMoves([0, 0], [3, 4]);
 // knightMoves([6, 0], [4, 2]);
 knightMoves([4, 5], [0, 1]);
