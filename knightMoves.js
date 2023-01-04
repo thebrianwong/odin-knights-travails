@@ -236,11 +236,14 @@ const knightMoves = (
     /* traversalQueue.unshift() */ /* MOVE THIS TO THE TOP, this removes children that were just added, or children not visited yet. also SHOULD BE SHIFT */
 
     // breadth first
+    console.log(startingCoordinate, "starting")
+    console.log(currentPath, "current path")
+    console.log(shortestPath, "shortest path")
     console.log(startingCoordinate, "old")
     startingCoordinate = shortestPath[0]
     console.log(startingCoordinate, "new")
     currentMoveCounter += 1
-    knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, currentPath, shortestPath)
+    return knightMoves(startingCoordinate, endingCoordinate, currentMoveCounter, lowestMoveCounter, currentPath, shortestPath)
   }
 
     // console.log(startingCoordinate, "starting")
@@ -294,6 +297,10 @@ const GameBoard = (() => {
 // console.log(GameBoard.getBoard());
 GameBoard.setBoard([4, 4]);
 
-knightMoves([0, 0], [1, 2]);
+// knightMoves([0, 0], [3, 3]);
+knightMoves([3, 3], [4, 3]);
 
 // make children logic go straight to the child square that is the ending square if possible, double check the logic so make sure all are legal moves
+
+// instead of currentPath and shortestPath being an array of array, try an array of objects, where each object has an x, y, and a parent
+// property that points to the parent node when the object is being enqueued
