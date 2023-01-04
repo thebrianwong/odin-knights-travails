@@ -200,31 +200,6 @@ const knightMoves = (
   }
 };
 
-const GameBoard = (() => {
-  const board = [
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-  ];
-  const getBoard = () => board;
-  const setBoard = ([x, y]) => {
-    if (board[x][y]) {
-      board[x][y] = 0;
-    } else {
-      board[x][y] = 1;
-    }
-  };
-  return {
-    getBoard,
-    setBoard,
-  };
-})();
-
 // console.log(GameBoard.getBoard());
 GameBoard.setBoard([4, 4]);
 
