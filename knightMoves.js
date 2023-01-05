@@ -1,12 +1,12 @@
-const checkIfVisited = (visitedCoordinates, testCoordinate) =>
-  visitedCoordinates.some(
-    (visitedCoordinate) =>
-      visitedCoordinate.row === testCoordinate.row &&
-      visitedCoordinate.column === testCoordinate.column
+const checkIfVisited = (visitedVertices, testVertex) =>
+  visitedVertices.some(
+    (visitedVertex) =>
+      visitedVertex.row === testVertex.row &&
+      visitedVertex.column === testVertex.column
   );
 
-const convertToArray = (graphNode) => {
-  const array = [graphNode.row, graphNode.column];
+const convertToArray = (GraphVertex) => {
+  const array = [GraphVertex.row, GraphVertex.column];
   return array;
 };
 
@@ -25,30 +25,30 @@ const isValidCoordinate = (coordinate) => {
 const rowDirections = [2, 2, 1, -1, -2, -2, -1, 1];
 const columnDirections = [-1, 1, 2, 2, 1, -1, -2, -2];
 
-const GraphNode = class {
-  constructor(row, column, parentNode = null) {
+const GraphVertex = class {
+  constructor(row, column, parentVertex = null) {
     this.row = row;
     this.column = column;
-    this.parentNode = parentNode;
+    this.parentVertex = parentVertex;
   }
 };
 
 const knightMoves = (
   startingCoordinate,
   endingCoordinate,
-  visitedCoordinates = [],
+  visitedVertices = [],
   traversalQueue = []
 ) => {
-  // edge case for the first function call where GraphNode objects have to be created
+  // edge case for the first function call where GraphVertex objects have to be created
   if (Array.isArray(startingCoordinate) || Array.isArray(endingCoordinate)) {
     if (Array.isArray(startingCoordinate)) {
-      startingCoordinate = new GraphNode(
+      startingCoordinate = new GraphVertex(
         startingCoordinate[0],
         startingCoordinate[1]
       );
     }
     if (Array.isArray(endingCoordinate)) {
-      endingCoordinate = new GraphNode(
+      endingCoordinate = new GraphVertex(
         endingCoordinate[0],
         endingCoordinate[1]
       );
@@ -71,9 +71,9 @@ const knightMoves = (
       return;
     }
   }
-  // keep track of visited nodes so that they don't get pointlessly revisited
-  if (checkIfVisited(visitedCoordinates, startingCoordinate) === false) {
-    visitedCoordinates.push(startingCoordinate);
+  // keep track of visited vertices so that they don't get pointlessly revisited
+  if (checkIfVisited(visitedVertices, startingCoordinate) === false) {
+    visitedVertices.push(startingCoordinate);
   }
   traversalQueue.shift();
   if (
@@ -83,15 +83,15 @@ const knightMoves = (
     let moveCounter = -1;
     const orderedPath = [];
     while (startingCoordinate !== null) {
-      // retracing from the ending square back to the initial starting square
+      // retracing from the ending vertex back to the initial starting vertex
       // the path needs to be reversed before displaying it
       orderedPath.unshift(startingCoordinate);
       moveCounter += 1;
-      startingCoordinate = startingCoordinate.parentNode;
+      startingCoordinate = startingCoordinate.parentVertex;
     }
     console.log(`You made it in ${moveCounter} moves! Here's your path:`);
-    orderedPath.forEach((coordinate) => {
-      console.log(convertToArray(coordinate));
+    orderedPath.forEach((vertex) => {
+      console.log(convertToArray(vertex));
     });
   } else {
     // non-adjacency list method, slightly faster
@@ -99,17 +99,17 @@ const knightMoves = (
       // each iteration looks at the 8 possible moves of a knight and determine if
       // it is a valid move (ie. doesn't move off the board) and if the move would take
       // the knight to a already visited or currently queued square
-      const potentialChildNode = new GraphNode(
+      const childVertex = new GraphVertex(
         startingCoordinate.row + rowDirections[i],
         startingCoordinate.column + columnDirections[i],
         startingCoordinate
       );
       if (
-        isValidCoordinate(potentialChildNode) &&
-        checkIfVisited(visitedCoordinates, potentialChildNode) === false &&
-        checkIfVisited(traversalQueue, potentialChildNode) === false
+        isValidCoordinate(childVertex) &&
+        checkIfVisited(visitedVertices, childVertex) === false &&
+        checkIfVisited(traversalQueue, childVertex) === false
       ) {
-        traversalQueue.push(potentialChildNode);
+        traversalQueue.push(childVertex);
       }
     }
 
@@ -119,11 +119,11 @@ const knightMoves = (
       for (let i = 0; i <= 7; i++) {
         const rowIndex = coordinate.row + rowDirections[i];
         const columnIndex = coordinate.column + columnDirections[i];
-        const potentialChildNode = new GraphNode(rowIndex, columnIndex);
+        const childVertex = new GraphVertex(rowIndex, columnIndex);
         if (
-          isValidCoordinate(potentialChildNode) &&
-          checkIfVisited(visitedCoordinates, potentialChildNode) === false &&
-          checkIfVisited(traversalQueue, potentialChildNode) === false
+          isValidCoordinate(childVertex) &&
+          checkIfVisited(visitedVertices, childVertex) === false &&
+          checkIfVisited(traversalQueue, childVertex) === false
         ) {
           adjacencyList[rowIndex].push(columnIndex);
         }
@@ -135,12 +135,12 @@ const knightMoves = (
     for (const row in adjacencyList) {
       if (adjacencyList[row].length > 0) {
         for (const column in adjacencyList[row]) {
-          const childNode = new GraphNode(
+          const childVertex = new GraphVertex(
             Number(row),
             adjacencyList[row][column],
             startingCoordinate
           );
-          traversalQueue.push(childNode);
+          traversalQueue.push(childVertex);
         }
       }
     } */
@@ -149,7 +149,7 @@ const knightMoves = (
     return knightMoves(
       startingCoordinate,
       endingCoordinate,
-      visitedCoordinates,
+      visitedVertices,
       traversalQueue
     );
   }
