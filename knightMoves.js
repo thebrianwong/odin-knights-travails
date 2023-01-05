@@ -94,7 +94,8 @@ const knightMoves = (
       console.log(convertToArray(coordinate));
     });
   } else {
-    /* for (let i = 0; i <= 7; i++) {
+    // non-adjacency list method, slightly faster
+    for (let i = 0; i <= 7; i++) {
       // each iteration looks at the 8 possible moves of a knight and determine if
       // it is a valid move (ie. doesn't move off the board) and if the move would take
       // the knight to a already visited or currently queued square
@@ -110,10 +111,10 @@ const knightMoves = (
       ) {
         traversalQueue.push(potentialChildNode);
       }
-    } */
+    }
 
-    // try out adjacency list
-    const buildAdjacencyList = (coordinate) => {
+    // adjacency list method
+    /* const buildAdjacencyList = (coordinate) => {
       const adjacencyList = [[], [], [], [], [], [], [], []];
       for (let i = 0; i <= 7; i++) {
         const rowIndex = coordinate.row + rowDirections[i];
@@ -129,8 +130,8 @@ const knightMoves = (
       }
       return adjacencyList;
     };
-
     const adjacencyList = buildAdjacencyList(startingCoordinate);
+    // iterate through the adjacency list to enqueue the current vertex's valid vertices
     for (const row in adjacencyList) {
       if (adjacencyList[row].length > 0) {
         for (const column in adjacencyList[row]) {
@@ -142,7 +143,7 @@ const knightMoves = (
           traversalQueue.push(childNode);
         }
       }
-    }
+    } */
 
     startingCoordinate = traversalQueue[0];
     return knightMoves(
