@@ -39,24 +39,6 @@ const knightMoves = (
   visitedCoordinates = [],
   traversalQueue = []
 ) => {
-  // const buildAdjacencyList = (coordinate) => {
-  //   const adjacencyList = [[], [], [], [], [], [], [], []];
-  //   for (let i = 0; i <= 7; i++) {
-  //     const rowIndex = coordinate.row + rowDirections[i];
-  //     const columnIndex = coordinate.column + columnDirections[i];
-  //     const potentialChildNode = new GraphNode(rowIndex, columnIndex);
-  //     if (
-  //       isValidCoordinate(potentialChildNode) &&
-  //       checkIfVisited(visitedCoordinates, potentialChildNode) === false &&
-  //       checkIfVisited(traversalQueue, potentialChildNode) === false
-  //     ) {
-  //       // traversalQueue.push(potentialChildNode);
-  //       adjacencyList[rowIndex].push(columnIndex);
-  //     }
-  //   }
-  //   return adjacencyList;
-  // };
-
   // edge case for the first function call where GraphNode objects have to be created
   if (Array.isArray(startingCoordinate) || Array.isArray(endingCoordinate)) {
     if (Array.isArray(startingCoordinate)) {
@@ -136,16 +118,12 @@ const knightMoves = (
       for (let i = 0; i <= 7; i++) {
         const rowIndex = coordinate.row + rowDirections[i];
         const columnIndex = coordinate.column + columnDirections[i];
-        // console.log(coordinate, rowIndex, columnIndex);
         const potentialChildNode = new GraphNode(rowIndex, columnIndex);
         if (
           isValidCoordinate(potentialChildNode) &&
           checkIfVisited(visitedCoordinates, potentialChildNode) === false &&
           checkIfVisited(traversalQueue, potentialChildNode) === false
         ) {
-          // traversalQueue.push(potentialChildNode);
-          // console.log("dd");
-          // console.log(adjacencyList[rowIndex]);
           adjacencyList[rowIndex].push(columnIndex);
         }
       }
@@ -153,20 +131,14 @@ const knightMoves = (
     };
 
     const adjacencyList = buildAdjacencyList(startingCoordinate);
-    console.log(startingCoordinate);
-    console.log(adjacencyList);
-
     for (const row in adjacencyList) {
-      for (const column in row) {
-        if (adjacencyList[row].length > 0) {
-          // console.log(row, adjacencyList[row][column]);
-          // console.log(typeof row, typeof adjacencyList[row][column]);
+      if (adjacencyList[row].length > 0) {
+        for (const column in adjacencyList[row]) {
           const childNode = new GraphNode(
             Number(row),
             adjacencyList[row][column],
             startingCoordinate
           );
-          // console.log(childNode);
           traversalQueue.push(childNode);
         }
       }
@@ -200,3 +172,7 @@ knightMoves([2, 3], [4, 3]);
 // 1 move
 // [ 0, 0 ]
 // [ 1, 2 ]
+
+// knightMoves([4, 4], [4, 4]);
+// 0 moves
+// [ 4, 4 ]
